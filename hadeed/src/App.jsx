@@ -7,7 +7,7 @@ import Register from "./pages/Register";
 import UploadProperty from "./pages/UploadProperty";
 import AIDesignGenerator from "./pages/AIDesignGenerator";
 import UserProfile from "./components/UserProfile";
-import ChatWidget from "./components/ChatWidget";
+import ChatWidget from "./components/chatwidget";
 import { propertyAPI } from "./utils/api";
 
 const STATS = [
