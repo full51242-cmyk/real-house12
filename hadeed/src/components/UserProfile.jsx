@@ -1,4 +1,4 @@
-import { memo, useState, useEffect } from "react";
+import { memo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authAPI } from "../utils/api";
 import "./UserProfile.css";
@@ -9,30 +9,30 @@ const DEFAULT_PHONE = "+92 1234589";
 const UserProfile = memo(() => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [user, setUser] = useState({
-    name: "bhalu",
-    email: "",
-    phone: DEFAULT_PHONE,
-    photo: DEFAULT_PHOTO
-  });
-  const navigate = useNavigate();
-
-  useEffect(() => {
+  const [user] = useState(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser && storedUser !== "undefined" && storedUser !== "null") {
       try {
         const userData = JSON.parse(storedUser);
-        setUser({
+        return {
           name: userData.name || "bhalu",
           email: userData.email || "",
           phone: userData.phone && userData.phone.trim() !== "" ? userData.phone : DEFAULT_PHONE,
           photo: userData.avatar || DEFAULT_PHOTO
-        });
+        };
       } catch (err) {
         console.error("Failed to parse stored user:", err);
       }
     }
-  }, []);
+
+    return {
+      name: "bhalu",
+      email: "",
+      phone: DEFAULT_PHONE,
+      photo: DEFAULT_PHOTO
+    };
+  });
+  const navigate = useNavigate();
 
   const handleEditProfile = () => {
     setIsOpen(false);

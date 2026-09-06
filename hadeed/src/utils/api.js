@@ -107,7 +107,7 @@ export const propertyAPI = {
         method: 'POST',
         body: JSON.stringify(propertyData),
       });
-    } catch (error) {
+    } catch {
       const properties = getStoredProperties();
       const newProperty = {
         ...propertyData,
@@ -130,7 +130,7 @@ export const propertyAPI = {
     try {
       const response = await apiCall('/properties');
       return response;
-    } catch (error) {
+    } catch {
       const stored = getStoredProperties();
       return { success: true, properties: stored };
     }

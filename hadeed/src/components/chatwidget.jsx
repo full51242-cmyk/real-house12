@@ -60,7 +60,7 @@ export default function ChatWidget() {
             description: "Contemporary apartment development with secure access and family amenities.",
           },
         ];
-      } catch (error) {
+      } catch {
         return [];
       }
     })();
@@ -86,7 +86,7 @@ export default function ChatWidget() {
           { role: "assistant", content: "Maaf kijiye, kuch masla hua. Dobara try karein." },
         ]);
       }
-    } catch (err) {
+    } catch {
       setMessages((prev) => [
         ...prev,
         { role: "assistant", content: "Server se connect nahi ho paya." },

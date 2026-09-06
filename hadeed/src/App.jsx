@@ -136,7 +136,7 @@ export default function App() {
         const response = await propertyAPI.list();
         const listing = response?.properties?.length ? response.properties : DEFAULT_PROPERTIES;
         setProperties(listing);
-      } catch (error) {
+      } catch {
         setProperties(DEFAULT_PROPERTIES);
       }
     };
