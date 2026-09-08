@@ -70,7 +70,12 @@ app.use((err, req, res, next) => {
 
 // Start server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-  console.log('Using Supabase for authentication and database');
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+    console.log('Using Supabase for authentication and database');
+  });
+}
+
+// Export for Vercel
+module.exports = app;
