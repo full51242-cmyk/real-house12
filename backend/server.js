@@ -18,7 +18,7 @@ const designGeneratorRoutes = require('./routes/designGenerator');
 const app = express();
 
 // Middleware
-const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'http://localhost:5173')
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'http://localhost:5173,https://full51242-cmyk.github.io')
   .split(',')
   .map((origin) => origin.trim())
   .filter(Boolean);
@@ -28,6 +28,8 @@ app.use(cors({
     if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
     return callback(new Error('Origin is not allowed'));
   },
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 app.use(express.json({ limit: '8mb' }));
 app.use(express.urlencoded({ extended: true }));
