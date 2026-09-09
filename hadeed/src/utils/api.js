@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = 'https://real-house12.vercel.app/api';
 const PROPERTY_STORAGE_KEY = 'hadeed_test_properties';
 
 const FALLBACK_PROPERTIES = [
