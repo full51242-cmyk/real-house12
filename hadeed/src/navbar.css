@@ -30,18 +30,20 @@
 .btn-login,
 .btn-signup,
 .btn-upload {
-  padding: 0.6rem 1.2rem;
+  padding: 0.5rem 1rem;
   border-radius: 6px;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   cursor: pointer;
   transition: all 0.3s ease;
   border: none;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
+  gap: 0.45rem;
   text-align: center;
+  line-height: 1.2;
 }
 
 .btn-login {
@@ -71,6 +73,8 @@
 .btn-upload {
   background: linear-gradient(135deg, var(--gradient-violet), var(--gradient-pink));
   color: white;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.82rem;
 }
 
 .btn-upload:hover {
@@ -79,8 +83,8 @@
 }
 
 .upload-icon {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
 }
 
 .navbar-auth {
@@ -296,9 +300,16 @@
   }
 
   .navbar-auth .btn-login,
-  .navbar-auth .btn-signup {
+  .navbar-auth .btn-signup,
+  .navbar-auth .btn-upload {
     width: 100%;
-    padding: 0.875rem 1.5rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .navbar-menu .btn-upload {
+    width: auto;
+    align-self: stretch;
   }
 }
 
