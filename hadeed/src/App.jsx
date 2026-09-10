@@ -8,6 +8,7 @@ import UploadProperty from "./pages/UploadProperty";
 import AIDesignGenerator from "./pages/AIDesignGenerator";
 import UserProfile from "./components/UserProfile";
 import ChatWidget from "./components/chatwidget";
+import ProtectedRoute from "./components/ProtectedRoute";
 import ContactPage from "./pages/ContactPage";
 import { propertyAPI } from "./utils/api";
 
@@ -330,7 +331,14 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/upload" element={<UploadProperty />} />
-        <Route path="/ai-design" element={<AIDesignGenerator />} />
+        <Route
+          path="/ai-design"
+          element={
+            <ProtectedRoute>
+              <AIDesignGenerator />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/profile" element={<UserProfile />} />
       </Routes>
       <ChatWidget />
