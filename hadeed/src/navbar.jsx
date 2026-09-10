@@ -7,20 +7,41 @@ const NAV_LINKS = [
   { label: "Portfolio", href: "portfolio", color: "#1976d2" },
   { label: "Approach", href: "approach", color: "#42a5f5" },
   { label: "Services", href: "services", color: "#64b5f6" },
-  { label: "Contact", href: "contact", color: "#90caf9" },
+  { label: "Contact", href: "/contact", color: "#90caf9", isRoute: true },
 ];
 
-const NavLink = memo(({ link, onClick }) => (
-  <a
-    href={`#${link.href}`}
-    onClick={(e) => onClick(e, link.href)}
-    className="nav-link"
-    style={{ "--link-color": link.color }}
-  >
-  <span className="nav-link-text">{link.label}</span>
-    <span className="nav-link-underline" />
-  </a>
-));
+const NavLink = memo(({ link, onClick }) => {
+  const content = (
+    <>
+      <span className="nav-link-text">{link.label}</span>
+      <span className="nav-link-underline" />
+    </>
+  );
+
+  if (link.isRoute) {
+    return (
+      <Link
+        to={link.href}
+        onClick={() => onClick(null, link.href, true)}
+        className="nav-link"
+        style={{ "--link-color": link.color }}
+      >
+        {content}
+      </Link>
+    );
+  }
+
+  return (
+    <a
+      href={`#${link.href}`}
+      onClick={(e) => onClick(e, link.href, false)}
+      className="nav-link"
+      style={{ "--link-color": link.color }}
+    >
+      {content}
+    </a>
+  );
+});
 
 NavLink.displayName = "NavLink";
 
@@ -73,18 +94,23 @@ const Navbar = memo(({ menuOpen, setMenuOpen }) => {
   }, [menuOpen, setMenuOpen]);
 
   const handleLinkClick = useCallback(
-    (e, sectionId) => {
-      e.preventDefault();
+    (e, target, isRoute = false) => {
       setMenuOpen(false);
+
+      if (isRoute) {
+        return;
+      }
+
+      if (e) e.preventDefault();
 
       if (location.pathname !== "/") {
         navigate("/");
         setTimeout(() => {
-          const el = document.getElementById(sectionId);
+          const el = document.getElementById(target);
           if (el) el.scrollIntoView({ behavior: "smooth" });
         }, 100);
       } else {
-        const el = document.getElementById(sectionId);
+        const el = document.getElementById(target);
         if (el) el.scrollIntoView({ behavior: "smooth" });
       }
     },

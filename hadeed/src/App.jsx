@@ -8,6 +8,7 @@ import UploadProperty from "./pages/UploadProperty";
 import AIDesignGenerator from "./pages/AIDesignGenerator";
 import UserProfile from "./components/UserProfile";
 import ChatWidget from "./components/chatwidget";
+import ContactPage from "./pages/ContactPage";
 import { propertyAPI } from "./utils/api";
 
 const STATS = [
@@ -325,6 +326,7 @@ export default function App() {
             </footer>
           </div>
         } />
+        <Route path="/contact" element={<ContactPage menuOpen={menuOpen} setMenuOpen={setMenuOpen} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/upload" element={<UploadProperty />} />
