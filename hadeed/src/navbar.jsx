@@ -1,4 +1,4 @@
-import { memo, useCallback } from "react";
+import { memo, useCallback, useEffect, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import UserProfile from "./components/UserProfile";
 import "./navbar.css";
@@ -42,6 +42,35 @@ NavToggle.displayName = "NavToggle";
 const Navbar = memo(({ menuOpen, setMenuOpen }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const navbarRef = useRef(null);
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname, setMenuOpen]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const handleClickOutside = (event) => {
+      if (navbarRef.current && !navbarRef.current.contains(event.target)) {
+        setMenuOpen(false);
+      }
+    };
+
+    const handleEscape = (event) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [menuOpen, setMenuOpen]);
 
   const handleLinkClick = useCallback(
     (e, sectionId) => {
@@ -67,7 +96,7 @@ const Navbar = memo(({ menuOpen, setMenuOpen }) => {
   }, [setMenuOpen]);
 
   return (
-    <header className="navbar">
+    <header className="navbar" ref={navbarRef}>
       <div className="navbar-container">
         <a className="navbar-brand" href="#top">
           <div className="navbar-logo">
@@ -80,6 +109,12 @@ const Navbar = memo(({ menuOpen, setMenuOpen }) => {
           <span className="brand-text">real</span>
           <span className="brand-accent">house</span>
         </a>
+
+        <div
+          className={`mobile-menu-backdrop ${menuOpen ? "active" : ""}`}
+          onClick={() => setMenuOpen(false)}
+          aria-hidden="true"
+        />
 
         <nav className={`navbar-menu ${menuOpen ? "open" : ""}`}>
           {NAV_LINKS.map((link) => (
