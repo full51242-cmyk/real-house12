@@ -153,9 +153,24 @@
 .ai-design-placeholder h2 { font-family: var(--display); font-size: 1.8rem; margin: 1.5rem 0 0.75rem; }
 .ai-design-placeholder p { color: var(--text-secondary); line-height: 1.6; margin: 0; }
 
-@media (max-width: 760px) {
+@media (max-width: 768px) {
   .ai-design-main { padding: 7rem 1rem 3rem; }
   .ai-design-intro { margin: 2.5rem 0 2.5rem; }
-  .ai-design-layout { grid-template-columns: 1fr; }
+  .ai-design-intro h1 { font-size: clamp(2rem, 8vw, 3rem); }
+  .ai-design-layout { grid-template-columns: 1fr; gap: 1.5rem; }
   .ai-design-result { min-height: 320px; }
+  .ai-design-form textarea { min-height: 150px; }
+}
+
+@media (max-width: 480px) {
+  .ai-design-main { padding: 6rem 0.75rem 2rem; }
+  .ai-design-intro h1 { font-size: clamp(1.8rem, 10vw, 2.5rem); }
+  .ai-design-intro > p:last-child { font-size: 0.95rem; }
+  .ai-design-form, .ai-design-result { padding: 1.25rem; }
+  .ai-design-form textarea { min-height: 120px; font-size: 0.95rem; }
+  .ai-design-button { padding: 0.8rem 1rem; font-size: 0.95rem; }
+  .ai-design-result { min-height: 280px; }
+  .ai-design-download-button { padding: 0.8rem 1rem; margin: 0 1rem 1rem; }
+  .ai-design-placeholder { max-width: 250px; padding: 1.5rem; }
+  .ai-design-placeholder h2 { font-size: 1.5rem; }
 }

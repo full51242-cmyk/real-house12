@@ -18,7 +18,7 @@ const designGeneratorRoutes = require('./routes/designGenerator');
 const app = express();
 
 // Middleware
-const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'http://localhost:5173,https://full51242-cmyk.github.io')
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'https://real-house12.vercel.app,https://full51242-cmyk.github.io')
   .split(',')
   .map((origin) => origin.trim())
   .filter(Boolean);

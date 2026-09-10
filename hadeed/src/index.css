@@ -32,9 +32,11 @@ body {
   color: var(--text-primary);
   font-family: var(--body);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  min-width: 320px;
 }
 
-img { max-width: 100%; display: block; }
+img { max-width: 100%; height: auto; display: block; }
 
 a { color: inherit; }
 
