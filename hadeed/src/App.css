@@ -203,20 +203,6 @@
   padding-bottom: 2px;
 }
 .nav-links a:hover { color: var(--brass); }
-.nav-toggle {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-}
-.nav-toggle span {
-  width: 22px;
-  height: 1.5px;
-  background: var(--ink);
-}
 
 /* ---------- Hero ---------- */
 .hero {
