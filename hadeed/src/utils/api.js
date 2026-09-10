@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://real-house12.vercel.app/api';
+export const API_BASE_URL = 'https://real-house12.vercel.app/api';
 const PROPERTY_STORAGE_KEY = 'hadeed_test_properties';
 
 const FALLBACK_PROPERTIES = [
@@ -142,6 +142,15 @@ export const designAPI = {
     return apiCall('/generate-design', {
       method: 'POST',
       body: JSON.stringify({ description }),
+    });
+  },
+};
+
+export const chatbotAPI = {
+  send: async (payload) => {
+    return apiCall('/chatbot', {
+      method: 'POST',
+      body: JSON.stringify(payload),
     });
   },
 };

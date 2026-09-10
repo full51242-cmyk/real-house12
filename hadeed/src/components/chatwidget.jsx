@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { chatbotAPI } from "../utils/api";
 import "./chat.css";
 
 export default function ChatWidget() {
@@ -66,26 +67,13 @@ export default function ChatWidget() {
     })();
 
     try {
-      const res = await fetch("http://localhost:5000/api/chatbot", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: userMessage.content,
-          history: newMessages.slice(-10),
-          context: propertyContext,
-        }),
+      const data = await chatbotAPI.send({
+        message: userMessage.content,
+        history: newMessages.slice(-10),
+        context: propertyContext,
       });
 
-      const data = await res.json();
-
-      if (res.ok) {
-        setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
-      } else {
-        setMessages((prev) => [
-          ...prev,
-          { role: "assistant", content: "Maaf kijiye, kuch masla hua. Dobara try karein." },
-        ]);
-      }
+      setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
     } catch {
       setMessages((prev) => [
         ...prev,
