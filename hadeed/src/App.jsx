@@ -331,14 +331,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/upload" element={<UploadProperty />} />
-        <Route
-          path="/ai-design"
-          element={
-            <ProtectedRoute>
-              <AIDesignGenerator />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/ai-design" element={<AIDesignGenerator />} />
         <Route path="/profile" element={<UserProfile />} />
       </Routes>
       <ChatWidget />
