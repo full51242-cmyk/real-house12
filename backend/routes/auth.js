@@ -22,7 +22,7 @@ async function getProfile(userId) {
     .from('profiles')
     .select('name, phone, avatar')
     .eq('id', userId)
-    .single();
+    .maybeSingle();
 
   if (error) {
     console.error('Profile fetch error:', error);
@@ -70,27 +70,37 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({ message: 'Registration failed. Check the supplied details.' });
     }
 
-    // Get user profile from profiles table
-    const { data: profile, error: profileError } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', data.user.id)
-      .single();
+    const user = data.user;
 
-    if (profileError) {
-      console.error('Profile fetch error:', profileError);
+    if (!user) {
+      return res.status(400).json({ message: 'Registration failed. Please try again.' });
     }
 
-    // Return user data and session
-    res.status(201).json({
+    if (data.session) {
+      const profile = await getProfile(user.id);
+
+      return res.status(201).json({
+        success: true,
+        token: data.session.access_token,
+        user: {
+          id: user.id,
+          name: profile?.name || user.user_metadata?.name || name,
+          email: user.email,
+          phone: profile?.phone || user.user_metadata?.phone || phone || '',
+          avatar: profile?.avatar || user.user_metadata?.avatar || DEFAULT_AVATAR
+        }
+      });
+    }
+
+    return res.status(200).json({
       success: true,
-      token: data.session.access_token,
+      message: 'Registration successful. Please check your email to confirm your account before signing in.',
       user: {
-        id: data.user.id,
-        name: profile?.name || name,
-        email: data.user.email,
-        phone: profile?.phone || phone,
-        avatar: profile?.avatar || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face'
+        id: user.id,
+        name: user.user_metadata?.name || name,
+        email: user.email,
+        phone: user.user_metadata?.phone || phone || '',
+        avatar: user.user_metadata?.avatar || DEFAULT_AVATAR
       }
     });
   } catch (error) {

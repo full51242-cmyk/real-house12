@@ -12,6 +12,7 @@ export default function Register() {
     confirmPassword: "",
   });
   const [error, setError] = useState("");
+  const [notice, setNotice] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -22,16 +23,20 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setNotice("");
     setLoading(true);
 
     try {
       const response = await authAPI.register(formData);
-      
-      // Store token and user data
+
+      if (!response?.token) {
+        setNotice(response?.message || 'Please check your email to confirm your account.');
+        return;
+      }
+
       localStorage.setItem('token', response.token);
       localStorage.setItem('user', JSON.stringify(response.user));
-      
-      // Redirect to home page
+
       navigate('/');
     } catch (err) {
       setError(err.message || 'Registration failed. Please try again.');
@@ -59,6 +64,12 @@ export default function Register() {
           {error && (
             <div className="error-message" style={{ color: '#ef4444', marginBottom: '1rem', padding: '0.75rem', background: 'rgba(239, 68, 68, 0.1)', borderRadius: '8px', fontSize: '0.9rem' }}>
               {error}
+            </div>
+          )}
+
+          {notice && (
+            <div className="success-message" style={{ color: '#15803d', marginBottom: '1rem', padding: '0.75rem', background: 'rgba(34, 197, 94, 0.12)', borderRadius: '8px', fontSize: '0.9rem' }}>
+              {notice}
             </div>
           )}
 
